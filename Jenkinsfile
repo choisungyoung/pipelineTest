@@ -11,7 +11,7 @@ node {
                     credentialsId: "choisungyoung",
                     url: "https://github.com/choisungyoung/pipelineTest.git"
                 )
-                mvnHome = tool 'M3'
+                mvnHome = "/var/jenkins_home/workspace/bin/maven/3.8.1/bin"
             }
             stage('Build') {
 	            withEnv(["MVN_HOME=$mvnHome"]) {
