@@ -1,8 +1,6 @@
 node {
-    // env.JAVA_HOME = "${jdk}"
-	def maven = tool name: 'maven3.5', type: 'maven'
-    //env.JAVA_HOME = "${jdk}"
-    env.MAVEN_HOME = "${maven}"	
+    def mvnHome
+    
     //timestamp 기능
     timestamps {
         // 빌드 결과에 따른 동작 정의
@@ -13,9 +11,16 @@ node {
                     credentialsId: "choisungyoung",
                     url: "https://github.com/choisungyoung/pipelineTest.git"
                 )
+                mvnHome = tool 'M3'
             }
             stage('Build') {
-                sh 'mvn -Dmaven.test.failure.ignore=true install'
+	            withEnv(["MVN_HOME=$mvnHome"]) {
+		            if (isUnix()) {
+		                sh '"$MVN_HOME/bin/mvn" -Dmaven.test.failure.ignore clean package'
+		            } else {
+		                bat(/"%MVN_HOME%\bin\mvn" -Dmaven.test.failure.ignore clean package/)
+		            }
+		        }
             }
             stage('Test') {
                 if (!params.TEST_SKIP) {
