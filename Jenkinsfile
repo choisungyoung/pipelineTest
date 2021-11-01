@@ -1,6 +1,6 @@
 node {
     // env.JAVA_HOME = "${jdk}"
-    env.MAVEN_HOME = "/var/jenkins_home/workspace/bin/maven/3.8.1/bin"
+    // env.MAVEN_HOME = "/var/jenkins_home/workspace/bin/maven/3.8.1/bin"
     
     //timestamp 기능
     timestamps {
@@ -14,7 +14,7 @@ node {
                 )
             }
             stage('Build') {
-                sh 'mvn -Dmaven.test.failure.ignore=true install'
+                // sh 'mvn -Dmaven.test.failure.ignore=true install'
             }
             stage('Test') {
                 if (!params.TEST_SKIP) {
