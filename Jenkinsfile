@@ -1,7 +1,8 @@
 node {
     // env.JAVA_HOME = "${jdk}"
-    env.MAVEN_HOME = "/var/jenkins_home/workspace/bin/maven/3.8.1/bin"
-    
+	def maven = tool name: 'maven3.5', type: 'maven'
+    //env.JAVA_HOME = "${jdk}"
+    env.MAVEN_HOME = "${maven}"	
     //timestamp 기능
     timestamps {
         // 빌드 결과에 따른 동작 정의
