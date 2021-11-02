@@ -24,8 +24,9 @@ node {
             }
             stage('Image Build') {
             
-                sh 'docker build -t pipelinetest .'
-               	app = docker.build("pipelinetest:latest")
+                //sh 'docker build -t pipelinetest .'
+                sh 'pwd'
+               	app = docker.build("pipelinetest")
                	
             	// Buildpacks이용한 이미지빌드방법
             	// sh './mvnw spring-boot:build-image'
