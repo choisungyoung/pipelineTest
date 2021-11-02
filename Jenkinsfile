@@ -13,18 +13,22 @@ node {
                 )
                 mvnHome = tool 'maven-3.8.1'
             }
-            stage('Build') {
+            stage('Maven Build') {
 	            withEnv(["MVN_HOME=$mvnHome"]) {
 		            if (isUnix()) {
-		                sh '"$MVN_HOME/bin/mvn" -Dmaven.test.failure.ignore clean package'
-		                sh 'docker build -t pipelinetest .'
-		                
-		            	// Buildpacks이용한 이미지빌드방법
-		            	// sh './mvnw spring-boot:build-image'
+		                //sh '"$MVN_HOME/bin/mvn" -Dmaven.test.failure.ignore clean package'
 		            } else {
 		                bat(/"%MVN_HOME%\bin\mvn" -Dmaven.test.failure.ignore clean package/)
 		            }
 		        }
+            }
+            stage('Image Build') {
+            
+                //sh 'docker build -t pipelinetest .'
+               	app = docker.build("pipelinetest:latest")
+               	
+            	// Buildpacks이용한 이미지빌드방법
+            	// sh './mvnw spring-boot:build-image'
             }
             stage('Test') {
                 if (!params.TEST_SKIP) {
