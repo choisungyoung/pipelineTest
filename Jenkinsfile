@@ -24,7 +24,7 @@ node {
             }
             stage('Image Build') {
             
-                //sh 'docker build -t pipelinetest .'
+                sh 'docker build -t pipelinetest .'
                	app = docker.build("pipelinetest:latest")
                	
             	// Buildpacks이용한 이미지빌드방법
