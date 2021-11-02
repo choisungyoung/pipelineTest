@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>kr.co.bnksys</groupId>
-	<artifactId>pipelineTest</artifactId>
+	<artifactId>pipelinetest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>pipelinetest</name>
+	<name>pipelineTest</name>
 	<description>Test Pipeline</description>
 	<properties>
 		<java.version>1.8</java.version>
