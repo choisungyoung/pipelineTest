@@ -16,8 +16,11 @@ node {
             stage('Build') {
 	            withEnv(["MVN_HOME=$mvnHome"]) {
 		            if (isUnix()) {
-		            	sh './mvnw spring-boot:build-image'
-		                // sh '"$MVN_HOME/bin/mvn" -Dmaven.test.failure.ignore clean package'
+		                sh '"$MVN_HOME/bin/mvn" -Dmaven.test.failure.ignore clean package'
+		                sh 'docker build -t pipelinetest .'
+		                
+		            	// Buildpacks이용한 이미지빌드방법
+		            	// sh './mvnw spring-boot:build-image'
 		            } else {
 		                bat(/"%MVN_HOME%\bin\mvn" -Dmaven.test.failure.ignore clean package/)
 		            }
