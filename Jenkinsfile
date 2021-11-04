@@ -23,12 +23,15 @@ node {
 		        }
             }
             stage('Image Build') {
-            
-                //sh 'docker build -t pipelinetest .'
-               	app = docker.build("pipelinetest")
+               	app = docker.build("pipelinetest")	//docker 플러그인 설치해야 해당문법 가능. 결국 실행된는건 "docker build -t pipelinetest ."
                	
             	// Buildpacks이용한 이미지빌드방법
             	// sh './mvnw spring-boot:build-image'
+            }
+            stage('Image Push') {
+            	docker.withRegistry('docker-registry.image-registry:5000', 'Jenkins') { 
+            		app.push("${env.BUILD_NUMBER}") app.push("latest") 
+        		}
             }
             stage('Test') {
                 if (!params.TEST_SKIP) {
