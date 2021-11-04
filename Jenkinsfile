@@ -30,12 +30,7 @@ node {
             }
             stage('Image Push') {
 
-                echo "=========================="
-                sh "cat /etc/docker/daemon.json"
-                sh "curl http://docker-registry.image-registry:5000/v2/_catalog"
-                echo "=========================="
-
-            	docker.withRegistry('http://docker-registry.image-registry:5000', '89c2760a-7e6f-4137-a8a0-ac50fa72513d') { 
+            	docker.withRegistry('http://node2.example.com:30500', '89c2760a-7e6f-4137-a8a0-ac50fa72513d') { 
             		app.push("${env.BUILD_NUMBER}") app.push("latest") 
         		}
             }
