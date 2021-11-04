@@ -29,7 +29,7 @@ node {
             	// sh './mvnw spring-boot:build-image'
             }
             stage('Image Push') {
-            	docker.withRegistry('docker-registry.image-registry:5000', 'Jenkins') { 
+            	docker.withRegistry('docker-registry.image-registry:5000', '89c2760a-7e6f-4137-a8a0-ac50fa72513d') { 
             		app.push("${env.BUILD_NUMBER}") app.push("latest") 
         		}
             }
