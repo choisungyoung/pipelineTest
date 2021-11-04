@@ -30,7 +30,7 @@ node {
             }
             stage('Image Push') {
 
-            	docker.withRegistry('http://node2.example.com:30500', '89c2760a-7e6f-4137-a8a0-ac50fa72513d') { 
+            	docker.withRegistry('http://localhost:30500', '89c2760a-7e6f-4137-a8a0-ac50fa72513d') { 
             		//app.push("${env.BUILD_NUMBER}") 
                     app.push("latest") 
         		}
