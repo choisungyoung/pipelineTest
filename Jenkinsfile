@@ -40,6 +40,11 @@ node {
                     echo "start test"
                 }
             }
+            stage('Apply Kubernetes files') {
+                withKubeConfig([credentialsId: '89c2760a-7e6f-4137-a8a0-ac50fa72513d', serverUrl: 'https://10.100.0.104:6443']) {
+                sh 'kubectl apply -f k8s-deploy.yaml'
+                }
+            }
             echo "Build Success"
         } catch (e) {
             echo "Build Failure"
