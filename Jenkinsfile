@@ -41,7 +41,7 @@ node {
                 }
             }
             stage('Apply Kubernetes files') {
-                withKubeConfig([credentialsId: '68f2122b-c7e6-4293-8c85-fdc090d7e32a', serverUrl: 'https://10.100.0.104:6443']) {
+                withKubeConfig([credentialsId: 'kube-config', serverUrl: 'https://10.100.0.104:6443']) {
                     sh 'kubectl apply -f k8s-deploy.yaml'
                 }
             }
