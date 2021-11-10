@@ -18,7 +18,7 @@ spec:
         - name: pipelinetest
           image: localhost:30500/pipelinetest:latest
           ports:
-            - containerPort: 9090
+            - containerPort: 9999
           resources:
             requests:
               cpu: 50m
@@ -34,5 +34,5 @@ spec:
     app: pipelinetest
   ports:
     - protocol: TCP
-      port: 9090
-      targetPort: 9090
+      port: 9999
+      targetPort: 9999
