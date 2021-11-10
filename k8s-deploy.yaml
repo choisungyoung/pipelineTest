@@ -22,3 +22,17 @@ spec:
           resources:
             requests:
               cpu: 50m
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pipelinetest-service
+spec:
+  type: ClusterIP
+  selector:
+    app: pipelinetest
+  ports:
+    - protocol: HTTP
+      port: 8080
+      targetPort: 8080
