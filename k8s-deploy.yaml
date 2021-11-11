@@ -22,7 +22,7 @@ spec:
           resources:
             requests:
               cpu: 50m
-      imagePullPolicy: Always
+          imagePullPolicy: Always
 
 ---
 apiVersion: v1
