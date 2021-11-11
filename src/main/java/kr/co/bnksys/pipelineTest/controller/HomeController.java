@@ -9,6 +9,6 @@ public class HomeController {
 
     @RequestMapping("/main")
     public String getMain() {
-        return "real success";
+        return "real success test";
     }
 }
