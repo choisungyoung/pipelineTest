@@ -43,6 +43,8 @@ node {
             stage('Apply Kubernetes files') {
                 withKubeConfig([credentialsId: 'kube-config', serverUrl: 'https://10.100.0.104:6443']) {
                     sh 'kubectl apply -f k8s-deploy.yaml'
+                    // 이미지명, 테그가 바뀔경우 아래 명령 실행안해도됨.
+                    sh 'kubectl rollout restart deployment -n jenkins pipelinetest pipelinetest'
                 }
             }
             echo "Build Success"
