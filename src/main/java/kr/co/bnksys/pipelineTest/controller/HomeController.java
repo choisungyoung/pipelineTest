@@ -9,6 +9,6 @@ public class HomeController {
 
     @RequestMapping("/main")
     public String getMain() {
-        return "test deployment!!!!\n";
+        return "test deployment!!!!\n 배포가 완료되었습니다\n";
     }
 }
