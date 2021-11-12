@@ -1,27 +1,24 @@
 node {
-    enviroment {
+    // git
+    def credentialsId = "choisungyoung"
+    def appName = "pipelinetest"
+    def gitRepositoryUrl = "https://github.com/choisungyoung/pipelineTest.git"
 
-        // git
-        credentialsId = "choisungyoung"
-        appName = "pipelinetest"
-        gitRepositoryUrl = "https://github.com/choisungyoung/pipelineTest.git"
-
-        // mavem
-        def mvnHome
-        mvnVersion = 'maven-3.8.1'
+    // mavem
+    def mvnHome
+    def mvnVersion = 'maven-3.8.1'
 
 
-        // docker
-        dockerRegistryUrl = "http://localhost:30500"
-        dockerRegistryCredentialId = "89c2760a-7e6f-4137-a8a0-ac50fa72513d"
-        dockerImageTag = "latest"
+    // docker
+    def dockerRegistryUrl = "http://localhost:30500"
+    def dockerRegistryCredentialId = "89c2760a-7e6f-4137-a8a0-ac50fa72513d"
+    def dockerImageTag = "latest"
 
-        // kubernetes
-        k8sCredentialsId = "kube-config"
-        k8sServerUrl = "https://10.100.0.104:6443"
-        k8sDeployFileName = "k8s-deploy.yaml"
-        k8sNameSpace = "jenkins"
-    }
+    // kubernetes
+    def k8sCredentialsId = "kube-config"
+    def k8sServerUrl = "https://10.100.0.104:6443"
+    def k8sDeployFileName = "k8s-deploy.yaml"
+    def k8sNameSpace = "jenkins"
 
     //timestamp 기능
     timestamps {
