@@ -1,6 +1,28 @@
 node {
-    def mvnHome
-    
+    enviroment {
+
+        // git
+        credentialsId = "choisungyoung"
+        appName = "pipelinetest"
+        gitRepositoryUrl = "https://github.com/choisungyoung/pipelineTest.git"
+
+        // mavem
+        def mvnHome
+        mvnVersion = 'maven-3.8.1'
+
+
+        // docker
+        dockerRegistryUrl = "http://localhost:30500"
+        dockerRegistryCredentialId = "89c2760a-7e6f-4137-a8a0-ac50fa72513d"
+        dockerImageTag = "latest"
+
+        // kubernetes
+        k8sCredentialsId = "kube-config"
+        k8sServerUrl = "https://10.100.0.104:6443"
+        k8sDeployFileName = "k8s-deploy.yaml"
+        k8sNameSpace = "jenkins"
+    }
+
     //timestamp 기능
     timestamps {
         // 빌드 결과에 따른 동작 정의
@@ -8,10 +30,10 @@ node {
             stage('Git Pull') {
                 git (
                     branch: "main",
-                    credentialsId: "choisungyoung",
-                    url: "https://github.com/choisungyoung/pipelineTest.git"
+                    credentialsId: credentialsId,
+                    url: gitRepositoryUrl
                 )
-                mvnHome = tool 'maven-3.8.1'
+                mvnHome = tool mvnVersion
             }
             stage('Maven Build') {
 	            withEnv(["MVN_HOME=$mvnHome"]) {
@@ -23,16 +45,16 @@ node {
 		        }
             }
             stage('Image Build') {
-               	app = docker.build("pipelinetest")	//docker 플러그인 설치해야 해당문법 가능. 결국 실행된는건 "docker build -t pipelinetest ."
+               	app = docker.build(appName)	//docker 플러그인 설치해야 해당문법 가능. 결국 실행된는건 "docker build -t pipelinetest ."
                	
             	// Buildpacks이용한 이미지빌드방법
             	// sh './mvnw spring-boot:build-image'
             }
             stage('Image Push') {
 
-            	docker.withRegistry('http://localhost:30500', '89c2760a-7e6f-4137-a8a0-ac50fa72513d') { 
+            	docker.withRegistry(dockerRegistryUrl, dockerRegistryCredentialId) { 
             		//app.push("${env.BUILD_NUMBER}") 
-                    app.push("latest") 
+                    app.push(dockerImageTag) 
         		}
             }
             stage('Test') {
@@ -40,11 +62,11 @@ node {
                     echo "start test"
                 }
             }
-            stage('Apply Kubernetes files') {
-                withKubeConfig([credentialsId: 'kube-config', serverUrl: 'https://10.100.0.104:6443']) {
-                    sh 'kubectl apply -f k8s-deploy.yaml'
+            stage('Deploy') {
+                withKubeConfig([credentialsId: k8sCredentialsId, serverUrl: k8sServerUrl]) {
+                    sh 'kubectl apply -f ' + k8sDeployFileName
                     // 이미지명, 테그가 바뀔경우 아래 명령 실행안해도됨.
-                    sh 'kubectl rollout restart deployment -n jenkins pipelinetest pipelinetest'
+                    sh 'kubectl rollout restart deployment -n ' + k8sNameSpace + " " + appName
                 }
             }
             echo "Build Success"
