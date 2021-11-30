@@ -30,10 +30,11 @@ kind: Service
 metadata:
   name: pipelinetest-service
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: pipelinetest
   ports:
     - protocol: TCP
       port: 9090
       targetPort: 9090
+      nodePort: 30300
