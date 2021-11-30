@@ -11,7 +11,7 @@ node {
 
     // docker
     def dockerRegistryUrl = "http://localhost:30500"
-    def dockerRegistryCredentialId = "89c2760a-7e6f-4137-a8a0-ac50fa72513d"
+    def dockerRegistryCredentialId = "337541fe-5ce6-42b1-8da6-252037076eca"
     def dockerImageTag = "latest"
 
     // kubernetes
